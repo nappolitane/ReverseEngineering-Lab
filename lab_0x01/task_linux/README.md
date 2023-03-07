@@ -182,6 +182,6 @@ for p in perms:
 So the correct input is **nhnewfhetkmdcdyamgeczihldazjcnhhqtjylumfvlrgmhasbwjqvanafylzyemlopqosj** and the flag is **timctf{7dfadd1ee67a9c516c9efbf8f0cf43f4}**
 
 <p align="center">
-  <img width="600" height="400" src="https://github.com/nappolitane/ReverseEngineering-Lab/lab_0x01/task_linux/ss.png">
+  <img width="600" height="400" src="https://github.com/nappolitane/ReverseEngineering-Lab/blob/master/lab_0x01/task_linux/ss.png">
 </p>
 
