@@ -7,13 +7,9 @@ We have a malicious binary and we have to use Process Monitor and API Monitor to
 ## Solution
 
 Firstly, i started the Process Monitor and checked for internet activity using the automatic filter that this tool has. It didn't appear anything. So then i tried with API Monitor and found this URL that it connects to and if we look at it we can determine that our malware is actually a stager that downloads a second stage malware that will actually do the malicious activity.
-<p align="center">
-  <img width="665" height="290" src="https://github.com/nappolitane/ReverseEngineering-Lab/blob/master/lab_0x01/task_windows/url.png">
-</p>
+![alt text](url.png?raw=true)
 In order to look for registry changes i used process monitor to filter for the *Process Name*, and the following *Operations*: **RegSetValue**,  **RegCreateKey** and **RegSaveKey**.
-<p align="center">
-  <img width="800" height="329" src="https://github.com/nappolitane/ReverseEngineering-Lab/blob/master/lab_0x01/task_windows/regs.png">
-</p>
+![alt text](regs.png?raw=true)
 If we look at the screen shot above, we can see that the first RegSetValue is applied on the *\Software\Microsoft\Windows\CurrentVersion\Run* registry key that is used for launching executables at logon time. This way the malware is restart resistant.
 Then the malware modifies the **ProxyBypass**, **IntranetName**, **UNCAsIntranet** and **AutoDetect** entries from the *\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap* registry key.
 The malware enables the **ProxyBypass** policy entry, so the sites which bypass the proxy server are mapped into the Intranet Zone.
