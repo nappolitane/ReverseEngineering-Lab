@@ -12,7 +12,7 @@ Firstly, i started the Process Monitor and checked for internet activity using t
 </p>
 In order to look for registry changes i used process monitor to filter for the *Process Name*, and the following *Operations*: **RegSetValue**,  **RegCreateKey** and **RegSaveKey**.
 <p align="center">
-  <img width="800" height="329" src="https://github.com/nappolitane/ReverseEngineering-Lab/blob/master/lab_0x01/task_windows/url.png">
+  <img width="800" height="329" src="https://github.com/nappolitane/ReverseEngineering-Lab/blob/master/lab_0x01/task_windows/regs.png">
 </p>
 If we look at the screen shot above, we can see that the first RegSetValue is applied on the *\Software\Microsoft\Windows\CurrentVersion\Run* registry key that is used for launching executables at logon time. This way the malware is restart resistant.
 Then the malware modifies the **ProxyBypass**, **IntranetName**, **UNCAsIntranet** and **AutoDetect** entries from the *\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap* registry key.
