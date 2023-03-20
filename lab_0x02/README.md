@@ -138,19 +138,17 @@ myst5:
 .L1:
 	ret
 ```
-It would be
+First we can see the "cmp" instructions where it checks if the parameter is below 1 where the code returns 0 and then below 3 where it returns 1. Then we can see that at L3 is a loop starting from 2 and the verification is if the counter is below the parameter. If we go to L4 we can see it checks if the parameter divided with the counter is zero that meaning checking for divisors. We can deduce it is about checking if the parameter is a prime number or not, returning 1 if is not and 0 if it is a prime number.
+The c code version would be
 ```
 #include <stdint.h>
-uint64_t myst5(uint64_t v){
-    uint64_t retval = 0;
-    if (v <= 1) return 0;
-    if (v <= 3) return 1;
-    uint64_t i = 2;
-    while(retval <= v){
-        i++;
-        retval = i*i;
+uint64_t myst5(uint64_t n){
+    if(n <= 1) return 0;
+    if(n <= 3) return 1;
+    for(uint64_t i = 2; i<n; i++){
+        if(i*i >= n || n%i == 0) return 1;
     }
-    return retval;
+    return 0;
 }
 ```
 
@@ -196,5 +194,7 @@ int main()
 First i tried to use a hex editor and overwrite the "Correct" with "Wrong" and vice-versa but then i realised this CAN work but would not get the same wanted outputs because "Correct" is longer than "Wrong" and we would only print a part of the word so the task wouldn't be correctly done.
 Then i looked in the objdump output.
 ![alt text](objdump.png?raw=true)
+
 So if we look at the code in main we deduce that the "cmp" instruction would be the "if" instruction, and we can see that if it is not equal it will go to 0x11eb and it will call "puts" with the parameter that is calculated with RIP and gives out 0x2012 where we deduce it should be "Wrong" and vice-versa if it is equal it will call "puts" with the parameter calculated with RIP and gives out 0x2009 where it should be "Correct!". I thought that i can rewrite those LEA instructions and calculate RIP with other values, specifically to result in interchanged addresses. So the first to result in 0x2009 and the other to result in 0x2012. So i wrote a script in C "changemain.c" to rewrite the binary with the new LEA instructions. Basically if we look at the LEA instructions we can see the adding operands inside the machine code in little endian (+0xe25 --> .. 3d **25 0e** 00 ..) and (+0xe20 --> .. 3d **20 0e** 00 ..). So when we overwrite the binary we will change these values to the ones that when added to RIP will return in the interchanged values of the adresses of the strings.
 ![alt text](evidence.png?raw=true)
+
