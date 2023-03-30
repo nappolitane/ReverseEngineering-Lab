@@ -17,5 +17,5 @@ Next we have the renamed and retyped functions and variables just like the sourc
 
 ![alt text](chance.png?raw=true)
 
-![alt text](get_rand_string.png?raw=true)
+![alt text](gen_rand_string.png?raw=true)
 
