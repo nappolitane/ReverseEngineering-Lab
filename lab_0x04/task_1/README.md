@@ -23,11 +23,7 @@ You can see above that before executing the *test* instruction the *rax* is 0x01
 
 ![alt text](modifyrax2.png?raw=true)
 
-Going back to those string values that are checked inside strcmp function we can check if they have a meaning in natural language, but they don't, because they don't correspond to alphabetical ascii characters.
-
-![alt text](cyberchef.png?raw=true)
-
-Now if we go back to the IDA decompiled code we can see that after the *sprintf* function the user input suffers a slight change. We can revert it using the same exact code.
+Going back to those string values that are checked inside strcmp function we can check if they have a meaning in natural language, but they don't, because they don't correspond to alphabetical ascii characters. Now if we go back to the IDA decompiled code we can see that after the *sprintf* function the user input suffers a slight change. We can revert it using the same exact code.
 ```
 #include <stdio.h>
 #include <string.h>
@@ -51,11 +47,11 @@ int main()
 ```
 Now we get another string that does not have a meaning. All we know is that it represents exactly 16 bytes. We also know that this can be some sort of an encoding or hashing. We will use cyberchef.io to determine if we were right.
 
-![alt text](cyberchef2.png?raw=true)
+![alt text](cyberchef.png?raw=true)
 
 So we actually were right and this string might be a hash. We now check if when our input is hashed will result that string.
 
-![alt text](cyberchef3.png?raw=true)
+![alt text](cyberchef2.png?raw=true)
 
 It does. The string is actually a MD5 hash. So now we have to also revert the "correct password" using the above code and then try to bruteforce it, because we know MD5 can be cracked and we wil use crackstation.net for that.
 
